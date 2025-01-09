@@ -1,9 +1,10 @@
 class Menu:
     NEW = 0
-    VIEW = 1
+    START = 1
+    VIEW = 2
 
 
-votes = {
+state = {
     "name": "",
     "voters": 0,
     "winner": [],
@@ -12,12 +13,12 @@ votes = {
 
 
 def set_name(name: str):
-    votes["name"] = name
+    state["name"] = name
 
 
 def set_voter_amount(voterAmount: int):
-    votes["voters"] = voterAmount
+    state["voters"] = voterAmount
 
 
 def add_candidate(name: str):
-    votes["candidates"].append({"name": name, "value": 0})
+    state["candidates"].append({"name": name, "vote": 0})

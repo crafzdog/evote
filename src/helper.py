@@ -10,6 +10,3 @@ def term_on_kbi(question: questionary.Question):
     except:
         console.print("[bold #ff6b6b]app terminated...")
         sys.exit(1)
-
-
-name = []

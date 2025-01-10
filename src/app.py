@@ -10,8 +10,6 @@ from helper import term_on_kbi
 def main():
     console.print(style_prompt.title, style="bold #cc5de8")
 
-    disable_results = "poll not set"
-
     while True:
         menu = term_on_kbi(
             questionary.select(
@@ -23,6 +21,7 @@ def main():
                         "View results",
                         value=votes.Menu.VIEW,
                     ),
+                    Choice("Exit", value=votes.Menu.EXIT),
                 ],
                 style=style_prompt.custom_style_select,
                 instruction=" ",
@@ -82,28 +81,40 @@ def main():
                         style=style_prompt.custom_style_text,
                     )
                 )
-                print("\nsetting up... OK.\n")
+                print("")
 
                 if sure:
-                    # disable_results = ""
+                    print("setting up... Ok.\n")
                     break
 
+                votes.reset_candidate()
+
         elif menu == votes.Menu.START:
+            candidates = [
+                {"name": candidate["name"], "value": i}
+                for i, candidate in enumerate(votes.state["candidates"])
+            ]
+
             for i in range(votes.state["voters"]):
                 candidate_index = term_on_kbi(
                     questionary.select(
                         "Choose your choice :",
-                        choices=[
-                            {"name": candidate["name"], "value": i}
-                            for i, candidate in enumerate(votes.state["candidates"])
-                        ],
+                        choices=candidates,
                         qmark=f"[polling-{i+1}]",
                         style=style_prompt.custom_style_select,
                         instruction=" ",
                     )
                 )
+                votes.send_poll(int(candidate_index))
 
-            print(votes.state)
+            print("")
+
+        elif menu == votes.Menu.VIEW:
+            votes.view_results()
+
+        elif menu == votes.Menu.EXIT:
+            print("Thanks, see you later!")
+            break
 
 
 if __name__ == "__main__":

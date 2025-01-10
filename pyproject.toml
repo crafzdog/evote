@@ -10,6 +10,7 @@ package-mode = false
 python = ">3.10,<3.14"
 questionary = "^2.1.0"
 rich = "^13.9.4"
+pyinstaller = "^6.11.1"
 
 
 [build-system]

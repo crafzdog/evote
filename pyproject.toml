@@ -2,7 +2,7 @@
 name = "evote"
 version = "0.1.0"
 description = "A voting app made for the Earth"
-authors = ["crafzdog"]
+authors = ["crafzdog", "athaya"]
 readme = "README.md"
 package-mode = false
 
